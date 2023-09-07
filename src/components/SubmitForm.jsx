@@ -6,6 +6,22 @@ import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
+const formStyle = {
+  maxWidth: "400px",
+  margin: "0 auto",
+  padding: "20px",
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginBottom: "10px",
+};
+
+const errorStyle = {
+  color: "red",
+};
+
 function SubmitForm() {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
@@ -44,33 +60,67 @@ function SubmitForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitOrder)}>
-        <input placeholder="COST...." {...register("cost")} />
-        <p>{errors.cost?.message}</p>
-        <input placeholder="Document Type" {...register("type")} />
-        <p>{errors.type?.message}</p>
-        <input placeholder="Order Number" {...register("ordernumber")} />
-        <p>{errors.ordernumber?.message}</p>
-        <input placeholder="Order Details" {...register("orderdetails")} />
-        <p>{errors.orderdetails?.message}</p>
-        <input placeholder="Payment Mode" {...register("paymentMode")} />
-        <p>{errors.paymentMode?.message}</p>
+      <form style={formStyle} onSubmit={handleSubmit(onSubmitOrder)}>
         <input
+          style={inputStyle}
+          placeholder="COST...."
+          {...register("cost")}
+        />
+        <p style={errorStyle}>{errors.cost?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Document Type"
+          {...register("type")}
+        />
+        <p style={errorStyle}>{errors.type?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Order Number"
+          {...register("ordernumber")}
+        />
+        <p style={errorStyle}>{errors.ordernumber?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Order Details"
+          {...register("orderdetails")}
+        />
+        <p style={errorStyle}>{errors.orderdetails?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Payment Mode"
+          {...register("paymentMode")}
+        />
+        <p style={errorStyle}>{errors.paymentMode?.message}</p>
+        <input
+          style={inputStyle}
           // type="checkbox"
           placeholder="Payment Status"
           {...register("paymentstatus")}
         />
-        <p>{errors.paymentstatus?.message}</p>
-        <input placeholder="Size" {...register("size")} />
-        <p>{errors.size?.message}</p>
-        <input type="date" placeholder="TimeStamp" {...register("timestamp")} />
-        <p>{errors.timestamp?.message}</p>
-        <input placeholder="Transaction ID" {...register("transactionid")} />
-        <p>{errors.transactionid?.message}</p>
-        <input placeholder="Vendor" {...register("vendor")} />
-        <p>{errors.vendor?.message}</p>
+        <p style={errorStyle}>{errors.paymentstatus?.message}</p>
+        <input style={inputStyle} placeholder="Size" {...register("size")} />
+        <p style={errorStyle}>{errors.size?.message}</p>
+        <input
+          style={inputStyle}
+          type="date"
+          placeholder="TimeStamp"
+          {...register("timestamp")}
+        />
+        <p style={errorStyle}>{errors.timestamp?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Transaction ID"
+          {...register("transactionid")}
+        />
+        <p style={errorStyle}>{errors.transactionid?.message}</p>
+        <input
+          style={inputStyle}
+          placeholder="Vendor"
+          {...register("vendor")}
+        />
+        <p style={errorStyle}>{errors.vendor?.message}</p>
 
-        <input type="submit" />
+        <input type="submit" style={inputStyle} />
       </form>
     </div>
   );
