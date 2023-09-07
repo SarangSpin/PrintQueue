@@ -22,7 +22,19 @@ const linkStyles = {
 const userStyles = {
   display: "flex",
   alignItems: "center",
+  alignSelf: "center",
+  verticalAlign: "center"
+  
+  
 };
+const buttonStyle = {
+  backgroundColor: "#4285F4",
+  color: "#fff",
+  padding: "5px 5px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+}
 
 function Navbar() {
   const [user, loading, error] = useAuthState(auth);
@@ -48,19 +60,22 @@ function Navbar() {
 
       {user && (
         <div style={userStyles}>
-          <div>Username: {user?.displayName || ""}</div>
-          <div>
+          
+          {/* <div>Username: </div> */}
             <img
               src={user?.photoURL || ""}
               alt="userphoto"
-              width="50"
-              height="50"
-              style={{ marginLeft: "10px" }}
+              width="30"
+              height="30"
+              
+              style={{ marginLeft: "10px", marginRight: "10px", borderRadius: "50%", }}
             />
-            <button onClick={signUserOut} style={{ marginLeft: "10px" }}>
+            <div style={{marginRight: "10px"}}>{user?.displayName || ""}</div>
+            
+            <button onClick={signUserOut} style={buttonStyle}>
               Sign Out
             </button>
-          </div>
+          
         </div>
       )}
     </div>

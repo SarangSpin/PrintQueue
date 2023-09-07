@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const homeStyle = {
   textAlign: "center",
   fontSize: "24px",
@@ -7,8 +8,19 @@ const homeStyle = {
   marginTop: "20px",
 };
 
+
+
+
 function Home() {
-  return <div style={homeStyle}>Home</div>;
+  return <>
+  <div style={homeStyle}>Home</div>
+  <div>
+
+
+  </div>
+ 
+
+</>;
 }
 
 export default Home;
