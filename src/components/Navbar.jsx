@@ -70,7 +70,7 @@ function Navbar() {
               
               style={{ marginLeft: "10px", marginRight: "10px", borderRadius: "50%", }}
             />
-            <div style={{marginRight: "10px"}}>{user?.displayName || ""}</div>
+            <div style={{marginRight: "10px",}}>{user?.displayName || ""}</div>
             
             <button onClick={signUserOut} style={buttonStyle}>
               Sign Out
