@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
-
+import { useNavigate } from "react-router-dom";
 const navbarStyles = {
   backgroundColor: "#333",
   color: "#fff",
@@ -11,6 +11,7 @@ const navbarStyles = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+ 
 };
 
 const linkStyles = {
@@ -23,8 +24,8 @@ const userStyles = {
   display: "flex",
   alignItems: "center",
   alignSelf: "center",
-  verticalAlign: "center"
-  
+  verticalAlign: "center",
+  width: "auto",
   
 };
 const buttonStyle = {
@@ -37,10 +38,20 @@ const buttonStyle = {
 }
 
 function Navbar() {
-  const [user, loading, error] = useAuthState(auth);
-
+  const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+  const [name, setname] = useState(auth.currentUser?.displayName)
+  const [logo, setlogo] = useState(auth.currentUser?.photoURL)
+  useEffect(()=>{
+  console.log(auth.currentUser)
+  if(name == null || name == "" || auth.currentUser == null){navigate('/')}
+  setname(auth.currentUser?.displayName)
+  setlogo(auth.currentUser?.photoURL)
+  
+  }, [auth.currentUser, user])
   const signUserOut = async () => {
     await signOut(auth);
+    
   };
 
   return (
@@ -63,14 +74,13 @@ function Navbar() {
           
           {/* <div>Username: </div> */}
             <img
-              src={user?.photoURL || ""}
-              alt="userphoto"
+              src={logo}
               width="30"
               height="30"
               
               style={{ marginLeft: "10px", marginRight: "10px", borderRadius: "50%", }}
             />
-            <div style={{marginRight: "10px",}}>{user?.displayName || ""}</div>
+            <div style={{marginRight: "10px",}}>{name}</div>
             
             <button onClick={signUserOut} style={buttonStyle}>
               Sign Out

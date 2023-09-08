@@ -9,15 +9,26 @@ import { getStorage } from "firebase/storage"
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//     apiKey: "AIzaSyCwtEN5sv6HIN7L2DPcSWtCFbkPVhpKckI",
+//     authDomain: "printer-2cba1.firebaseapp.com",
+//     projectId: "printer-2cba1",
+//     storageBucket: "printer-2cba1.appspot.com",
+//     messagingSenderId: "924254946947",
+//     appId: "1:924254946947:web:b62d93140c0e84a82f3db6",
+//     measurementId: "G-2CVYGRMLBG"
+// };
 const firebaseConfig = {
     apiKey: "AIzaSyCwtEN5sv6HIN7L2DPcSWtCFbkPVhpKckI",
     authDomain: "printer-2cba1.firebaseapp.com",
+    databaseURL: "https://printer-2cba1-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "printer-2cba1",
     storageBucket: "printer-2cba1.appspot.com",
     messagingSenderId: "924254946947",
     appId: "1:924254946947:web:b62d93140c0e84a82f3db6",
     measurementId: "G-2CVYGRMLBG"
-};
+  };
+  
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

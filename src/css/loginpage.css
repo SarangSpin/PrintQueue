@@ -1,4 +1,6 @@
 /* Grid */
+
+
 main.container {
   display: flex;
   flex-direction: column;
@@ -58,10 +60,10 @@ article div {
 }
 
 /* Nav */
-summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
+/* summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
   background-color: transparent;
   color: var(--secondary-hover);
-}
+} */
 
 /* Hero Image */
 article div:nth-of-type(2) {
@@ -134,7 +136,7 @@ body > footer {
   }
 }
 
-.animate-character h1 {
+hgroup.animate-character h1 {
   display: inline-block;
   animation: animate 4s ease-in-out infinite;
 }

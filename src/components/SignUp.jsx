@@ -1,12 +1,14 @@
 import React from "react";
 import { auth, provider } from "../config/firebase";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithPopup, updateCurrentUser } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "../config/minimal-theme-switcher.js"
 import "../css/loginpage.css"
 import "../css/picocss.css"
 import { useState } from "react";
+import { createUserWithEmailAndPassword, } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 
 const containerStyle = {
@@ -17,6 +19,7 @@ const containerStyle = {
   minHeight: "100vh",
 };
 
+
 const buttonStyle = {
   backgroundColor: "#4285F4",
   color: "#fff",
@@ -26,16 +29,24 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
-function Login() {
+function SignUp() {
   const navigate = useNavigate();
-  const gUrl = "../img/png-transparent-google-logo-g-suite-google-guava-google-plus-company-text-logo.png";
+  
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
     navigate("/");
   };
 
+  const [user] = useAuthState(auth);
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+
+  // Event handlers to update state variables
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,11 +56,32 @@ function Login() {
     setPassword(e.target.value);
   };
 
+  const handleConfPasswordChange = (e) => {
+    setConfPassword(e.target.value);
+  };
+
+  // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).then((res)=>{console.log(res); alert("Login successful"); navigate("/")}).catch((err)=>{console.log(err); navigate("/login")})
-  
-console.log(getAuth)  }
+    if(confPassword == password){
+   createUserWithEmailAndPassword(auth, email, password).then((res)=>{
+    alert("Sucessfully registered")
+    navigate('/username-update', { state: username})
+
+    
+    
+    
+}).catch((err)=>{throw err})
+    }
+    else{
+    alert('Please re-enter your password')
+    setPassword('')
+    setConfPassword('')
+    }  
+
+}
+
+
 
   return (
     <>
@@ -59,12 +91,22 @@ console.log(getAuth)  }
       <article className="grid">
         <div>
           <hgroup className="animate-character">
-            <h1>Sign in</h1>
+            <h1>Create an Account</h1>
             <h2></h2>
 
           </hgroup>
           <form onSubmit={handleSubmit}>
-          <input
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        aria-label="Username"
+        autoComplete="username"
+        required
+        value={username}
+        onChange={handleUsernameChange}
+      />
+      <input
         type="email"
         name="email"
         placeholder="Email"
@@ -74,7 +116,7 @@ console.log(getAuth)  }
         value={email}
         onChange={handleEmailChange}
       />
-            <input
+      <input
         type="password"
         name="password"
         placeholder="Password"
@@ -84,29 +126,22 @@ console.log(getAuth)  }
         value={password}
         onChange={handlePasswordChange}
       />
-            <fieldset>
-              <label for="remember">
-                <input type="checkbox" role="switch" id="remember" name="remember" />
-                Remember me
-              </label>
-            </fieldset>
+      <input
+        type="password"
+        name="confpassword"
+        placeholder="Confirm Password"
+        aria-label="Confirm Password"
+        autoComplete="current-password"
+        required
+        value={confPassword}
+        onChange={handleConfPasswordChange}
+      />
 
-            <button type="submit" className="contrast" onclick="event.preventDefault()" >Login</button>
-
-          </form>
-          <hgroup className="animate-character">
-            <h1>Or</h1>
-            <h2></h2>
-            <button className="contrast" style={{marginTop: "10px"}} onClick={signInWithGoogle}>
-              <img src={require("../img/png-transparent-google-logo-g-suite-google-guava-google-plus-company-text-logo.png")} 
-              alt="logo" width="25"
-              height="25"
-               />
-               <div style={{margin: "15px", padding: "0px"}}> Sign in with Google</div>
-       
+      <button type="submit" className="contrast">
+        Sign Up
       </button>
-          </hgroup>
-          <button className="contrast" style={{marginTop: "10px"}}  onClick={(e)=>{e.preventDefault(); navigate('/signup') }}>New user? Create an Account</button>
+    </form>
+          
         </div>
 
         
@@ -119,4 +154,4 @@ console.log(getAuth)  }
   );
 }
 
-export default Login;
+export default SignUp;
