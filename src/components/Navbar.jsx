@@ -41,10 +41,12 @@ function Navbar() {
   const [name, setname] = useState(auth.currentUser?.displayName);
   const [logo, setlogo] = useState(auth.currentUser?.photoURL);
   useEffect(() => {
+    if(user?.email === "printoproject123@gmail.com"){navigate("/submissions")}
     console.log(auth.currentUser);
     if (name == null || name == "" || auth.currentUser == null) {
       navigate("/");
     }
+    if(user?.email === "printoproject123@gmail.com"){navigate("/submissions")}
     setname(auth.currentUser?.displayName);
     setlogo(auth.currentUser?.photoURL);
   }, [auth.currentUser, user]);
@@ -54,18 +56,31 @@ function Navbar() {
 
   return (
     <div style={navbarStyles}>
+      { (user?.email !== "printoproject123@gmail.com") && <>
       <Link to="/" style={linkStyles}>
         HOME
       </Link>
+      
       {!user ? (
+        <>
+        
         <Link to="/login" style={linkStyles}>
           LOGIN
         </Link>
-      ) : (
+        </>
+      ) : (<>
+        <Link to={`/review-applications?user=${auth.currentUser?.uid}`}  style={linkStyles}>
+        Your Pending Orders
+      </Link>
         <Link to="/submitorder" style={linkStyles}>
           Submit File
         </Link>
-      )}
+        </>
+      )}</>
+}
+ {(user?.email === "printoproject123@gmail.com") && <Link to="/submissions" style={linkStyles}>
+        SUBMISSIONS
+      </Link>}
 
       {user && (
         <div style={userStyles}>

@@ -10,6 +10,8 @@ import SubmitFile from './components/SubmitFile';
 import SignUp from './components/SignUp';
 import UsernameUpdate from './components/usernameUpdate';
 import PendingOrders from './components/PendingOrders';
+import ViewOrders from './components/ViewOrders';
+import ReviewOrders from './components/Review';
 function App() {
   return (
     <div className="App">
@@ -23,6 +25,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/username-update" element={<UsernameUpdate />} />
           <Route path="/view-all-orders" element={<PendingOrders />} />
+          <Route path="/submissions" element={<ViewOrders />}/>
+          <Route path="/review-applications" element={<ReviewOrders/>} />
         </Routes>
       </Router>
     </div>

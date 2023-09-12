@@ -14,7 +14,7 @@ function PendingOrders() {
         id: doc.id,
       }))
     );
-    // console.log(ordersList);
+    console.log(ordersList);
   };
 
   useEffect(() => {
@@ -23,11 +23,13 @@ function PendingOrders() {
 
   return (
     <div>
+    <table>
       {ordersList?.map((order) => {
         if (order.completeStatus === false) {
           return <Order order={order} />;
         }
       })}
+      </table>
       {/* {ordersList?.map((order) => {
         return <Order order={order} key={order.id} />;
       })} */}

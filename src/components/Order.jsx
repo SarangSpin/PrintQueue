@@ -2,18 +2,23 @@ import { getDownloadURL, ref } from "firebase/storage";
 import React, { useState } from "react";
 import { db, storage } from "../config/firebase";
 import { collection, doc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function Order(props) {
   const { order } = props;
   const [newurl, setNewurl] = useState(null);
+  const [start, setStart] = useState(null);
+  const [status, setStatus] = useState(null);
   const postsref = collection(db, "orders");
-
+  const navigate = useNavigate();
   const handleDownload = () => {
     const fileref = ref(storage, `${order.filepath}`);
+    setStart(order.filepath);
     console.log("in");
     getDownloadURL(fileref)
       .then((url) => {
         setNewurl(url);
+        window.open(url, '_blank')
         console.log(newurl);
       })
       .catch((error) => console.log(error));
@@ -29,28 +34,37 @@ function Order(props) {
       completeStatus: true,
     });
     console.log("Updated");
+    alert(`Order is completed`)
+    setStatus(order)
+    navigate("/submissions")
+    
   };
+
+  const colorStatus = ()=>{
+    if (start === order?.filepath) {return ({backgroundColor: "green"})}
+    
+  }
   return (
-    <div>
-      <table>
-        <tr>
-          <td>
-            <button onClick={() => updateDatabase()}>Mark Done</button>
+    <>
+    { (!(status?.completeStatus) && status?.user !== order?.user)  &&  
+        <tr style={colorStatus()}>
+          <td>{start == order?.filepath ? <button onClick={() => updateDatabase()}>Mark Done</button>  : ""}
           </td>
+          <th>{order?.timestamp.seconds}</th>
           <th>{order?.user}</th>
           <th>{order?.orderdetails}</th>
+          <th>{order?.paymentMode}</th>
           <th>{order?.paymentstatus}</th>
+          <th>{order?.completeStatus === false ? "Pending" : "Completed" }</th>
           <th>
-            {!newurl ? (
-              <button onClick={() => handleDownload()}>Create Link</button>
-            ) : (
-              <a href={newurl}>Download File</a>
-            )}
+            
+              <button onClick={() => handleDownload()}>Proceed</button>
+         
           </th>
         </tr>
-        <hr></hr>
-      </table>
-    </div>
+       }
+        </>
+       
   );
 }
 

@@ -31,7 +31,9 @@ function Login() {
   const gUrl = "../img/png-transparent-google-logo-g-suite-google-guava-google-plus-company-text-logo.png";
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
-    navigate("/");
+    console.log(result.user)
+    // if(result.user.email === "printoproject123@gmail.com"){navigate("/submissions")}
+    navigate("/")
   };
 
   const [email, setEmail] = useState('');
