@@ -4,7 +4,9 @@ import { db, storage } from "../config/firebase";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
+
 function Order(props) {
+
   const { order } = props;
   const [newurl, setNewurl] = useState(null);
   const [start, setStart] = useState(null);
@@ -14,9 +16,10 @@ function Order(props) {
   const handleDownload = () => {
     const fileref = ref(storage, `${order.filepath}`);
     setStart(order.filepath);
-    console.log("in");
+    console.log(order.filepath);
     getDownloadURL(fileref)
       .then((url) => {
+        console.log(url)
         setNewurl(url);
         window.open(url, '_blank')
         console.log(newurl);
@@ -36,21 +39,27 @@ function Order(props) {
     console.log("Updated");
     alert(`Order is completed`)
     setStatus(order)
+
+
+//email
+//email
     navigate("/submissions")
     
   };
 
   const colorStatus = ()=>{
     if (start === order?.filepath) {return ({backgroundColor: "green"})}
-    
+  
   }
   return (
     <>
+    
     { (!(status?.completeStatus) && status?.user !== order?.user)  &&  
         <tr style={colorStatus()}>
           <td>{start == order?.filepath ? <button onClick={() => updateDatabase()}>Mark Done</button>  : ""}
           </td>
-          <th>{order?.timestamp.seconds}</th>
+        
+          <th>{(new Date(order?.timestamp.seconds*1000)).toUTCString()}</th>
           <th>{order?.user}</th>
           <th>{order?.orderdetails}</th>
           <th>{order?.paymentMode}</th>

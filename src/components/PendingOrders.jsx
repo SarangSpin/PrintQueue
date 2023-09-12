@@ -24,6 +24,16 @@ function PendingOrders() {
   return (
     <div>
     <table>
+    <tr style={{backgroundColor: "black", fontWeight: "bolder"}}>
+          <td></td>
+          <th>Time</th>
+          <th>User</th>
+          <th>Order Details</th>
+          <th>Payment Mode</th>
+          <th>Payment Status</th>
+          <th>Order Status</th>
+          
+        </tr>
       {ordersList?.map((order) => {
         if (order.completeStatus === false) {
           return <Order order={order} />;

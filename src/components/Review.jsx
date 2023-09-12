@@ -41,11 +41,22 @@ function ReviewOrders() {
   return (
     <div>
     <table>
+    <tr style={{backgroundColor: "black", fontWeight: "bolder"}}>
+          <td></td>
+          <th>Time</th>
+          <th>User</th>
+          <th>Transactionid</th>
+          <th>Order Details</th>
+          <th>Payment Mode</th>
+          <th>Payment Status</th>
+          <th>Order Status</th>
+          
+        </tr>
       {ordersList?.map((order) => {
-        if (order.completeStatus === false && order.userid === searchParams.get('user')) {
+        if (order.userid === searchParams.get('user')) {
           return <tr>
-         
-          <th>{order?.timestamp.seconds}</th>
+         <th></th>
+         <th>{(new Date(order?.timestamp.seconds*1000)).toUTCString()}</th>
           <th>{order?.user}</th>
           <th>{order?.transactionid}</th>
           <th>{order?.orderdetails}</th>
