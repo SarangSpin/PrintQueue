@@ -45,10 +45,10 @@ function ReviewOrders() {
           <td></td>
           <th>Time</th>
           <th>User</th>
-          <th>Transactionid</th>
-          <th>Order Details</th>
+          <th>Pages</th>
+          <th>Order Description</th>
           <th>Payment Mode</th>
-          <th>Payment Status</th>
+          <th>Color</th>
           <th>Order Status</th>
           
         </tr>
@@ -58,10 +58,11 @@ function ReviewOrders() {
          <th></th>
          <th>{(new Date(order?.timestamp.seconds*1000)).toUTCString()}</th>
           <th>{order?.user}</th>
-          <th>{order?.transactionid}</th>
-          <th>{order?.orderdetails}</th>
+          <th>{order?.pages}</th>
+          <th>{order?.orderDescription}</th>
           <th>{order?.paymentMode}</th>
-          <th>{order?.paymentstatus}</th>
+          
+          <th>{order?.color}</th>
           <th>{order?.completeStatus === false ? "Pending" : "Completed" }</th>
         
         </tr>;

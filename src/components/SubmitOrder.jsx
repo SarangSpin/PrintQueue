@@ -6,7 +6,7 @@ import OverallSubmit from "./OverallSubmit";
 
 function SubmitOrder() {
   return (
-    <div className="submit-order-container">
+    <div className="submit-order-container" style={{display: "flex" , flexDirection: "column" ,margin: "2rem", alignItems: "center"}}>
       <h2 className="submit-order-heading">Submit Your Order</h2>
       {/* <div className="submit-form">
         <SubmitForm />

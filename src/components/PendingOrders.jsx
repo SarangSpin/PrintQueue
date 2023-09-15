@@ -28,9 +28,9 @@ function PendingOrders() {
           <td></td>
           <th>Time</th>
           <th>User</th>
-          <th>Order Details</th>
+          <th>Order Description</th>
           <th>Payment Mode</th>
-          <th>Payment Status</th>
+          
           <th>Order Status</th>
           
         </tr>

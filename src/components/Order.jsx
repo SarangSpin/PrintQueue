@@ -61,9 +61,9 @@ function Order(props) {
         
           <th>{(new Date(order?.timestamp.seconds*1000)).toUTCString()}</th>
           <th>{order?.user}</th>
-          <th>{order?.orderdetails}</th>
+          <th>{order?.orderDescription}</th>
           <th>{order?.paymentMode}</th>
-          <th>{order?.paymentstatus}</th>
+          
           <th>{order?.completeStatus === false ? "Pending" : "Completed" }</th>
           <th>
             
